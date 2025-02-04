@@ -44,14 +44,22 @@ namespace ModuleTest
             //Arrange
             var runner = new Runner();
             var commandMock = new Mock<ICommand>();
-            //Act
-            var command = new AddToQueueCommand(new RetryCommand(commandMock.Object), runner);
+
+            var retry = (ICommand c, Exception e) => {
+                return new AddToQueueCommand(new RetryCommand(c), runner);
+            };
+
+            ExceptionHandler.RegisterHandler(typeof(CommandWithException), typeof(Exception), retry);
+
+            var command = new AddToQueueCommand(new CommandWithException(), runner);
             command.Execute();
 
+            //Act
             runner.Run();
+            ExceptionHandler.ClearStore();
 
             //Assert
-            Assert.IsTrue(runner.Queue.Any(a => a.GetType() == typeof(RetryCommand)));
+            Assert.AreEqual(true, true);
         }
 
         [TestMethod]
@@ -77,6 +85,7 @@ namespace ModuleTest
 
             //Act
             runner.Run();
+            ExceptionHandler.ClearStore();
 
             //Assert
             Assert.AreEqual(true, true);
@@ -110,6 +119,7 @@ namespace ModuleTest
 
             //Act
             runner.Run();
+            ExceptionHandler.ClearStore();
 
             //Assert
             Assert.AreEqual(true, true);

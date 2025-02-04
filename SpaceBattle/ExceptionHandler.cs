@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SpaceBattle.Commands;
 using SpaceBattle.Interfaces;
 
 namespace SpaceBattle
@@ -12,9 +13,7 @@ namespace SpaceBattle
         private static IDictionary<Type, IDictionary<Type, Func<ICommand, Exception, ICommand>>> _store = new Dictionary<Type, IDictionary<Type, Func<ICommand, Exception, ICommand>>>();
         
         private static readonly Func<ICommand, Exception, ICommand> _defaultHandler =
-            (command, exception) =>
-                throw new Exception(
-                    $"handler for command: {command.GetType().Name} and error: {exception.GetType().Name} not found");
+            (command, exception) => new WriteToLogCommand(command, exception);
         public static Func<ICommand, Exception, ICommand> DefaultHandler { get; set; } = _defaultHandler;
 
         public static ICommand Handle(ICommand c, Exception e)
