@@ -1,4 +1,6 @@
-﻿namespace SpaceBattle
+﻿using SpaceBattle.Interfaces;
+
+namespace SpaceBattle
 {
     public class Rotate
     {

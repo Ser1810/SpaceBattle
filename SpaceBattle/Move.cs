@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using SpaceBattle.Interfaces;
 
 namespace SpaceBattle
 {
