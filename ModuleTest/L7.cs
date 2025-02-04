@@ -1,11 +1,12 @@
 using SpaceBattle;
 using Moq;
 using System.Numerics;
+using SpaceBattle.Interfaces;
 
 namespace ModuleTest
 {
     [TestClass]
-    public class Tests
+    public class L7
     {
         [TestMethod]
         public void TestMethod7_3_1()

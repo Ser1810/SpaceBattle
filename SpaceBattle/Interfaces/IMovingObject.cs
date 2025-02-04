@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace SpaceBattle
+namespace SpaceBattle.Interfaces
 {
     public interface IMovingObject
     {
