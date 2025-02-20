@@ -20,10 +20,17 @@ namespace SpaceBattle.IoC
 
         public void Execute()
         {
-            if (!ScopeBaseDependencyStrategy.CurrentScope.Value!.Dependencies.TryAdd(key, strategy))
+            if (ScopeBaseDependencyStrategy.CurrentScope.Value!.Dependencies.ContainsKey(key))
             {
-                throw new System.Exception("Не удалось зарегистрировать зависимость");
+                return;
             }
+            else
+            {
+                if (!ScopeBaseDependencyStrategy.CurrentScope.Value!.Dependencies.TryAdd(key, strategy))
+                {
+                    throw new System.Exception("Не удалось зарегистрировать зависимость");
+                }
+            }            
         }
     }
 }
