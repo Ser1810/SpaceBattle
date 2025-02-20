@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SpaceBattle.Interfaces;
+﻿using SpaceBattle.Interfaces;
 
 namespace SpaceBattle
 {
@@ -20,7 +14,13 @@ namespace SpaceBattle
 
         public void SetProperty(string propName, object newVal)
         {
-            values.TryAdd(propName, newVal);
+            if (values.ContainsKey(propName))
+            {
+                values[propName] = newVal;
+            } else
+            {
+                values.Add(propName, newVal);
+            }
         }
     }
 }
